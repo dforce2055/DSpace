@@ -199,6 +199,7 @@ public class HandleUtil
         if (aDso instanceof Item)
         {
             Item item = (Item) aDso;
+            stack.push(item);
             Collection collection = item.getOwningCollection();
 
             aDso = collection;
@@ -251,6 +252,19 @@ public class HandleUtil
             {
             	Community community = (Community) pop;
             	String name = community.getMetadata("name");
+            	if (name == null || name.length() == 0)
+                {
+                    pageMeta.addTrailLink(target, new Message("default", "xmlui.general.untitled"));
+                }
+            	else
+                {
+                    pageMeta.addTrailLink(target, name);
+                }
+            }
+            else if (pop instanceof Item)
+            {
+            	Item item = (Item) pop;
+            	String name = item.getMetadata("name");
             	if (name == null || name.length() == 0)
                 {
                     pageMeta.addTrailLink(target, new Message("default", "xmlui.general.untitled"));
